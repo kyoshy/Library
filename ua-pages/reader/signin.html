@@ -1,0 +1,83 @@
+<?php
+$connection = mysqli_connect("127.0.0.1","root","","my_library");
+  session_start();
+  if(isset($_SESSION['name'])){
+	  header('Location: account.php');
+  }
+?>
+
+<!doctype html>
+<html lang="ua">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Бібліотека">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Бібліотека</title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+   
+    <!-- Bootstrap core CSS -->
+<!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    
+    <!-- Custom styles for this template -->
+	<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900" rel="stylesheet">
+    <link href="signin.css" rel="stylesheet">
+  </head>
+  
+  <body class="text-center">
+    
+<form class="form-signin" method="post">
+<header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+	 <div class="col-12 text-center">
+        <a class="blog-header-logo" href="../../index.html">Бібліотека</a>
+     </div>
+	</div>
+</header>
+  <p class="h5 mb-3">Будь ласка введіть дані</p>
+  <label for="inputName" class="sr-only">Введіть ім'я</label>
+  <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Введіть ім'я" required autofocus>
+  <br>
+  <label for="inputSurn" class="sr-only">Введіть прізвище</label>
+  <input type="text" id="inputSurn" name="inputSurn" class="form-control" placeholder="Введіть прізвище" required>
+  <br>
+  <label for="inputTel" class="sr-only">Введіть ім'я</label>
+  <input type="tel" id="inputTel" name="inputTel" class="form-control" placeholder="Введіть номер телефону: 380..." required>
+  <br>
+  <?php
+  if($connection == false)
+  {
+	  ?>
+	  <div class="col-12 text-center">
+	  <p class="lead my-3" style="color: #800080">Не вдалось встановити з'єдняння з базою даних</p>
+	  </div>
+	  <?php
+  }
+  ?>
+  
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>
+  <?php
+
+  if(isset($_POST['inputName']) and isset($_POST['inputSurn']) and isset($_POST['inputTel'])){
+	  $name = $_POST['inputName'];
+	  $surname = $_POST['inputSurn'];
+	  $tel = $_POST['inputTel'];
+	  
+	  $result = mysqli_query($connection, "SELECT * FROM `readers` WHERE `NAME` = '$name' AND `SURNAME` = '$surname' AND `TELEPHONE` = '$tel'");
+	  $count=mysqli_fetch_assoc($result);
+	  if(count($count) == 0){
+		?>
+		<p class="lead my-3" style="color: #800080">Читач на знайден</p>
+		<?php		  
+	  }else{
+		  $_SESSION['name'] = $name;
+		  $_SESSION['surname'] = $surname;
+		  $_SESSION['tel'] = $tel;
+		header('Location: account.php');
+	  }
+  }
+  ?>
+</form>  
+  </body>
+</html>

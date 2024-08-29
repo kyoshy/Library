@@ -1,0 +1,92 @@
+<?php
+$connection = mysqli_connect("127.0.0.1","root","","my_library");
+$result = mysqli_query($connection, "SELECT * FROM `books` WHERE `PAGE_NAME` = 'Історія-нового-імені.php'");
+$book = mysqli_fetch_assoc($result)
+?>
+
+<!doctype html>
+<html lang="ua">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Бібліотека">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Бібліотека</title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+<!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="book-pages.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-12 text-center">
+        <a class="blog-header-logo" href="../../../index.html">Бібліотека</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-center">
+      <a class="p-2 text-muted" href="../../../index.html">Головна</a>
+      <a class="p-2 text-muted" href="../katalog.html">Каталог</a>
+      <a class="p-2 text-muted" href="../../reader/signin.html">Читачу</a>
+    </nav>
+  </div>
+  </div>
+  
+  <main role="main" class="container">
+  
+  <?php
+  if($connection == false)
+  {
+	  ?>
+	  <div class="col-12 text-center">
+	  <p class="lead my-3" style="color: #800080">Не вдалось встановити з'єдняння з базою даних</p>
+	  </div>
+	  <?php
+  }
+  ?>
+  
+    <div class="col-12 text-center">
+	<h2>Історія нового імені</h2>
+	</div>
+  <br>
+  <div class="row">
+  <div class="col-sm-8 col-md-6 text-center">
+    <img src="../images/new-name.jpg" height=100% width=50%>
+  </div>
+  <div class="col-sm-4 col-md-6 p-4">
+  <p>Назва: <em>Історія нового імені</em></p>
+  <p>Автор: <em>Е. Ферранте</em></p>
+  <p>Рік видання: <em>2019</em></p>
+  <p>Видавництво: <em>«Книжковий Клуб «Клуб Сімейного Дозвілля»</em></p>
+  <p>Сторінок: <em>480</em></p>
+  <p>Мова: <em>українська</em></p>
+  <p>Серія: <em>Неаполітанські романи</em></p>
+  <p>ISBN: <em>978-617-12-6702-2</em></p>
+  </div>
+  </div>
+  <div class="text-center">
+	<p>
+    <a href="../katalog.html" class="btn my-3">Назад</a>
+    </p>
+  </div>
+  </main>
+
+
+<footer class="blog-footer m-4">
+  <p>Інформаційна система для бібліотеки, розробила студентка академічної групи КБ-20 <a id=my-link href="https://www.instagram.com/ficus.jpeg/">Ховренко Єлизавета</a></p>
+</footer>
+
+
+    
+  </body>
+</html>
